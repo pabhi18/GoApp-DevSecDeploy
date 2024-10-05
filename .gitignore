@@ -19,6 +19,4 @@
 
 # Go workspace file
 go.work
-go.work.sumlarge-file.bin
-*.bin
-*.log
+go.work.sum
