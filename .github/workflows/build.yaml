@@ -1,0 +1,37 @@
+name: go-app-DevSecOps
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/go-app-devsecops .
+
+      - name: Push Image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/go-app-devsecops:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull docker image
+        run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/go-app-devsecops:latest
+
+      - name: Delete old container
+        run: sudo docker rm -f go-app-devsecops-container || true
+  
+      - name: Run docker container          
+        run: sudo docker run -d -p 8080:8080 --init --name go-app-devsecops-container ${{ secrets.DOCKER_USERNAME }}/go-app-devsecops:latest
