@@ -6,18 +6,18 @@ on:
       - "main"
 
 jobs:
-  build:
-    name: Build and analyze
+  sonarcloud:
+    name: SonarCloud
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
-      - uses: sonarsource/sonarqube-scan-action@v3
+          fetch-depth: 0  
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5

@@ -1,6 +1,0 @@
-projectKey=go-app-devsecops
-serverUrl=http://localhost:9000
-serverVersion=10.7.0.96327
-dashboardUrl=http://localhost:9000/dashboard?id=go-app-devsecops
-ceTaskId=585183e5-ee67-42a7-80d7-c637c2c3dcbe
-ceTaskUrl=http://localhost:9000/api/ce/task?id=585183e5-ee67-42a7-80d7-c637c2c3dcbe
