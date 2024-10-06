@@ -38,7 +38,7 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/go-app-devsecops .
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@v0.2.0
+        uses: aquasecurity/trivy-action@v0.11.0
         with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/go-app-devsecops:latest
           format: 'table'
